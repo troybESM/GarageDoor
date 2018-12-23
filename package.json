@@ -1,0 +1,19 @@
+{
+  "name": "garagedoor",
+  "version": "1.0.0",
+  "description": "GarageDoor API",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/troybESM/GarageDoor.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/troybESM/GarageDoor/issues"
+  },
+  "homepage": "https://github.com/troybESM/GarageDoor#readme"
+}
