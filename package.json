@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/troybESM/GarageDoor/issues"
   },
-  "homepage": "https://github.com/troybESM/GarageDoor#readme"
+  "homepage": "https://github.com/troybESM/GarageDoor#readme",
+  "dependencies": {
+    "myq-api": "0.0.2"
+  }
 }
