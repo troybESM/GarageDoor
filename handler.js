@@ -3,15 +3,14 @@ var MyQ = require('myq-api');
 var email = process.env.USER
 var password = process.env.PASS
 var account = new MyQ(email, password);
-
-module.exports.status = async (event, context) => {
-  await account.login()
+account.login()
   .then(function (result) {
     console.log(result);
   }).catch(function (err) {
     console.error(err);
   });
 
+module.exports.status = async (event, context) => {
   let myDevices =await account.getDevices([3, 15, 17])
   .then(function (result) {
     console.log(result);

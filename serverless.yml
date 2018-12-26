@@ -17,4 +17,4 @@ functions:
       PASS: ${self:custom.pass}
       KEY: ${self:custom.apiKey}
     memorySize: 256
-    timeout: 30
+    timeout: 60
