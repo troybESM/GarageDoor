@@ -24,23 +24,21 @@ module.exports.status = async (event, context) => {
   });
   
   var door = myDevices.devices.find(function(device){
+    // this will only find the first door. 
     return device.typeId == 17
-    // if (device.typeId == 17){
-    //   console.log(`The ${device.name} is ${device.doorStateDescription} `);
-    //   statusMessage.push(`The ${device.name} is ${device.doorStateDescription}`)
-    // }
   });
   console.log(door);
   statusMessage = `The ${door.name} is ${door.doorStateDescription}`
   console.log(statusMessage);
-  return buildResponse(200,statusMessage)
+  return buildResponse(200,statusMessage,door.doorStateDescription)
 };
 
-function buildResponse(code,repsonseMessage){
+function buildResponse(code,responseMessage,state){
   let response = {
     statusCode: code,
     body: JSON.stringify({
-      message: repsonseMessage
+      message: responseMessage,
+      state: state
     },null,4)
   };
   return response
