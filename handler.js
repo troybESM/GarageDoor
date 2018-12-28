@@ -4,6 +4,7 @@ var email = process.env.USER;
 var password = process.env.PASS;
 var account = new MyQ(email, password);
 let myDevices;
+let statusMessage;
 
 module.exports.status = async (event, context) => {
   await account.login()
@@ -22,15 +23,21 @@ module.exports.status = async (event, context) => {
     return err;
   });
   
-  myDevices.devices.forEach(function(device){
+  statusMessage = myDevices.devices.forEach(function(device){
     if (device.typeId == 17){
-      console.log(`The ${device.name} is ${device.doorStateDescription} `)
-      return {
-        statusCode: 200,
-        body: JSON.stringify({
-          message: `The ${device.name} is ${device.doorStateDescription} `,
-        }),
-      };
+      console.log(`The ${device.name} is ${device.doorStateDescription} `);
+      return `The ${device.name} is ${device.doorStateDescription} `
     }
-  })
+  });
+  console.log(statusMessage);
+  return buildResponse(200,"TEST MESSAGE")
 };
+function buildResponse(code,repsonseMessage){
+  let response = {
+    statusCode: code,
+    body: JSON.stringify({
+      message: repsonseMessage
+    },null,4)
+  };
+  return response
+}
