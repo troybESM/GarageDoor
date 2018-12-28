@@ -25,6 +25,9 @@ functions:
       - http:
           path: door/status
           method: get
+          authorizer: authorizeUser
+  authorizeUser:
+    handler: authorizer.user
 
 plugins:
   - serverless-plugin-create-deployment-bucket
