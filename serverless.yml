@@ -8,6 +8,9 @@ custom:
 provider:
   name: aws
   runtime: nodejs8.10
+  region: us-east-1
+  # deploymentBucket:
+  #   name: com.serverless.${self:provider.region}.8675309
 
 functions:
   status:
@@ -18,3 +21,6 @@ functions:
       KEY: ${self:custom.apiKey}
     memorySize: 256
     timeout: 60
+
+plugins:
+  - serverless-plugin-create-deployment-bucket

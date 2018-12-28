@@ -18,5 +18,8 @@
   "homepage": "https://github.com/troybESM/GarageDoor#readme",
   "dependencies": {
     "myq-api": "0.0.2"
+  },
+  "devDependencies": {
+    "serverless-plugin-create-deployment-bucket": "0.0.2"
   }
 }

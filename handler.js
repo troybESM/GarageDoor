@@ -1,34 +1,36 @@
 'use strict';
 var MyQ = require('myq-api');
-var email = process.env.USER
-var password = process.env.PASS
+var email = process.env.USER;
+var password = process.env.PASS;
 var account = new MyQ(email, password);
-account.login()
+let myDevices;
+
+module.exports.status = async (event, context) => {
+  await account.login()
   .then(function (result) {
-    console.log(result);
+    // console.log(result);
   }).catch(function (err) {
     console.error(err);
   });
-
-module.exports.status = async (event, context) => {
-  let myDevices =await account.getDevices([3, 15, 17])
+  
+  myDevices =await account.getDevices([3, 15, 17])
   .then(function (result) {
-    console.log(result);
+    // console.log(result);
     return result;
   }).catch(function (err) {
-    console.error(err);
+    // console.error(err);
     return err;
   });
   
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: 'These are the devices associated with your account',
-      input: event,
-      devices: myDevices
-    }),
-  };
-
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // return { message: 'Go Serverless v1.0! Your function executed successfully!', event };
+  myDevices.devices.forEach(function(device){
+    if (device.typeId == 17){
+      console.log(`The ${device.name} is ${device.doorStateDescription} `)
+      return {
+        statusCode: 200,
+        body: JSON.stringify({
+          message: `The ${device.name} is ${device.doorStateDescription} `,
+        }),
+      };
+    }
+  })
 };
