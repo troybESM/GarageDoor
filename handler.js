@@ -16,22 +16,26 @@ module.exports.status = async (event, context) => {
   
   myDevices =await account.getDevices([3, 15, 17])
   .then(function (result) {
-    // console.log(result);
+    console.log(result);
     return result;
   }).catch(function (err) {
     // console.error(err);
     return err;
   });
   
-  statusMessage = myDevices.devices.forEach(function(device){
-    if (device.typeId == 17){
-      console.log(`The ${device.name} is ${device.doorStateDescription} `);
-      return `The ${device.name} is ${device.doorStateDescription} `
-    }
+  var door = myDevices.devices.find(function(device){
+    return device.typeId == 17
+    // if (device.typeId == 17){
+    //   console.log(`The ${device.name} is ${device.doorStateDescription} `);
+    //   statusMessage.push(`The ${device.name} is ${device.doorStateDescription}`)
+    // }
   });
+  console.log(door);
+  statusMessage = `The ${door.name} is ${door.doorStateDescription}`
   console.log(statusMessage);
-  return buildResponse(200,"TEST MESSAGE")
+  return buildResponse(200,statusMessage)
 };
+
 function buildResponse(code,repsonseMessage){
   let response = {
     statusCode: code,
