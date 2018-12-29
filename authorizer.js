@@ -19,15 +19,8 @@ const generatePolicy = function(principalId, effect, resource) {
 };
 
 module.exports.user = (event, context, callback) => {
-
+console.log(event);
   // Get Token
-  if (typeof event.authorizationToken === 'undefined') {
-    if (process.env.DEBUG === 'true') {
-      console.log('AUTH: No token');
-    }
-    callback('Unauthorized');
-  }
-
   const split = event.authorizationToken.split('Bearer');
   if (split.length !== 2) {
     if (process.env.DEBUG === 'true') {
@@ -41,15 +34,16 @@ module.exports.user = (event, context, callback) => {
    * search token in database and check if valid
    * here for demo purpose we will just compare with hardcoded value
    */
-   switch (token.toLowerCase()) {
+  // const token = event.authorizationToken;
+   switch (token) {
+    case "troy":
+      callback(null, generatePolicy('user123', 'Allow', event.methodArn));
+      break;
     case key:
       callback(null, generatePolicy('user123', 'Allow', event.methodArn));
       break;
-    case "4674cc54-bd05-11e7-abc4-cec278b6b50b":
-      callback(null, generatePolicy('user123', 'Deny', event.methodArn));
-      break;
     default:
       callback('Unauthorized');
+      console.log(`Token: ${token}`);
    }
-
 };

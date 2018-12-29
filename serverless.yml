@@ -14,11 +14,10 @@ provider:
 
 functions:
   status:
-    handler: handler.status
+    handler: door.status
     environment:
       USER: ${self:custom.user}
       PASS: ${self:custom.pass}
-      KEY: ${self:custom.apiKey}
     memorySize: 256
     timeout: 60
     events:
@@ -26,8 +25,23 @@ functions:
           path: door/status
           method: get
           authorizer: authorizeUser
+  open:
+    handler: door.open
+    environment:
+      USER: ${self:custom.user}
+      PASS: ${self:custom.pass}
+    memorySize: 256
+    timeout: 60
+    events:
+      - http:
+          path: door/open
+          method: get
+          authorizer: authorizeUser
+
   authorizeUser:
     handler: authorizer.user
+    environment:
+      KEY: ${self:custom.apiKey}
 
 plugins:
   - serverless-plugin-create-deployment-bucket
